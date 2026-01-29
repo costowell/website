@@ -2,7 +2,7 @@
 	import { wavelengthToRgb } from '$lib';
 	import { onMount } from 'svelte';
 
-	const BACKGROUND_COLOR = '#111827'; // gray-900
+	const BACKGROUND_COLOR = '#030712'; // gray-950
 	const POINT_COLOR = '#f3f4f6'; // gray-100
 
 	type Point = {
@@ -53,7 +53,7 @@
 		}
 
 		if (interval) clearInterval(interval);
-		interval = setInterval(() => update(ctx), 10);
+		interval = setInterval(() => update(ctx), 1000 / 60);
 	}
 
 	function update(ctx: CanvasRenderingContext2D) {
@@ -65,7 +65,7 @@
 	}
 
 	function spawnWave() {
-		if (Math.floor(Math.random() * 300) !== 0) return;
+		if (Math.floor(Math.random() * 100) !== 0) return;
 
 		const goingRight = Math.random() < 0.5;
 		waves.push({
@@ -157,4 +157,4 @@
 	});
 </script>
 
-<canvas bind:this={canvas} class="absolute h-full w-full"></canvas>
+<canvas bind:this={canvas} class="absolute -z-30 h-full w-full"></canvas>
