@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { wavelengthToRgb } from '$lib';
 	import { onMount } from 'svelte';
 	import colors from 'tailwindcss/colors';
 
@@ -9,11 +10,22 @@
 		dy: number;
 	};
 
+	type Wave = {
+		x: number;
+		y: number;
+		dx: number;
+		dy: number;
+		freq: number;
+	};
+
 	let c: HTMLCanvasElement;
 	let points: Point[] = [];
+	let waves: Wave[] = [];
+	let interval: NodeJS.Timeout | undefined;
 
 	let init = () => {
 		points = [];
+		waves = [];
 		c.width = window.innerWidth;
 		c.height = window.innerHeight;
 		let ctx = c.getContext('2d');
@@ -22,8 +34,10 @@
 		}
 		ctx.fillStyle = colors.gray['900'];
 		ctx.fillRect(0, 0, c.width, c.height);
+		ctx.imageSmoothingEnabled = false;
 
-		for (let i = 0; i < 100; ++i) {
+		let count = (window.innerWidth * window.innerHeight) / 10000;
+		for (let i = 0; i < count; ++i) {
 			let x = Math.floor(Math.random() * c.width);
 			let y = Math.floor(Math.random() * c.height);
 			points.push({
@@ -38,28 +52,65 @@
 			let normalize = (num: number, min: number, max: number) => {
 				return Math.min(max, Math.max(num, min));
 			};
-			// Update and erase
-			for (let i = 0; i < points.length; ++i) {
-				let point = points[i];
-				ctx.fillStyle = colors.gray['900'];
-				ctx.beginPath();
-				ctx.arc(points[i].x, points[i].y, 3, 0, 2 * Math.PI, false);
-				ctx.fill();
-				point.dx += (Math.floor(Math.random() * 3) - 1) / 100;
-				point.dy += (Math.floor(Math.random() * 3) - 1) / 100;
-				point.dx = normalize(point.dx, -0.5, 0.5);
-				point.dy = normalize(point.dy, -0.5, 0.5);
-				point.x += points[i].dx;
-				point.y += points[i].dy;
-				if (point.x != normalize(point.x, 0, c.width)) {
-					point.dx *= -0.25;
-				}
-				if (point.y != normalize(point.y, 0, c.height)) {
-					point.dy *= -0.25;
+
+			// Randomly spawn wave
+			if (Math.floor(Math.random() * 300) == 0) {
+				if (Math.floor(Math.random() * 2) == 0) {
+					waves.push({
+						dx: 0.5,
+						dy: Math.random() * 0.3 - 0.15,
+						freq: Math.floor(Math.random() * 370) + 380,
+						x: 0,
+						y: Math.floor(Math.random() * window.innerHeight)
+					});
+				} else {
+					waves.push({
+						dx: -0.5,
+						dy: Math.random() * 0.5 - 0.25,
+						freq: Math.floor(Math.random() * 370) + 380,
+						x: window.innerWidth,
+						y: Math.floor(Math.random() * window.innerHeight)
+					});
 				}
 			}
 
-			// Draw
+			// Update and erase points
+			for (let point of points) {
+				ctx.fillStyle = colors.gray['900'];
+				ctx.beginPath();
+				ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI, false);
+				ctx.fill();
+
+				// Change speed
+				point.dx += (Math.floor(Math.random() * 3) - 1) / 100;
+				point.dy += (Math.floor(Math.random() * 3) - 1) / 100;
+
+				// Don't go tooooo fast
+				point.dx = normalize(point.dx, -0.25, 0.25);
+				point.dy = normalize(point.dy, -0.25, 0.25);
+
+				// Update position
+				/// xoff is like a breeze blowing from left to right
+				const now = new Date();
+				const time = now.getSeconds() + now.getMilliseconds() / 1000;
+				const xoff = Math.cos(((time % 10) / 5) * Math.PI) / 5;
+				point.x += point.dx + xoff;
+				point.y += point.dy;
+				if (point.x != normalize(point.x, 0, window.innerWidth)) {
+					point.dx *= -1;
+				}
+				if (point.y != normalize(point.y, 0, window.innerHeight)) {
+					point.dy *= -1;
+				}
+			}
+
+			// Update
+			for (let wave of waves) {
+				wave.x += wave.dx;
+				wave.y += wave.dy;
+			}
+
+			// Draw points
 			for (let point of points) {
 				ctx.fillStyle = colors.gray['100'];
 				ctx.strokeStyle = colors.gray['100'];
@@ -67,11 +118,41 @@
 				ctx.arc(point.x, point.y, 1, 0, 2 * Math.PI, false);
 				ctx.fill();
 			}
-			setTimeout(() => {
-				update();
-			}, 10);
+			// Draw and erase wave
+			for (let [i, wave] of waves.entries()) {
+				ctx.fillStyle = wavelengthToRgb(wave.freq);
+				ctx.strokeStyle = ctx.fillStyle;
+				ctx.beginPath();
+				let y = wave.y + 5 * Math.sin((wave.x * wave.freq) / 2000);
+				ctx.arc(wave.x, y, 1, 0, 2 * Math.PI, false);
+				ctx.fill();
+
+				ctx.beginPath();
+				ctx.fillStyle = colors.gray['900'];
+				ctx.strokeStyle = colors.gray['900'];
+				let relx = 3 * ((4000 * Math.PI) / wave.freq);
+				let xi;
+				if (wave.dx < 0) {
+					xi = wave.x + relx;
+				} else {
+					xi = wave.x - relx;
+				}
+
+				let yi = y - (wave.x - xi) * (wave.dy / wave.dx);
+				ctx.arc(xi, yi, 2, 0, 2 * Math.PI, false);
+				ctx.fill();
+
+				if (wave.x > window.innerWidth * 1.5) {
+					waves.splice(i, 1);
+				}
+			}
 		};
-		update();
+		if (interval) {
+			clearInterval(interval);
+		}
+		interval = setInterval(() => {
+			update();
+		}, 10);
 	};
 	onMount(() => {
 		init();
