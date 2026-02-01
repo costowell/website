@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+	--font-sans: 'Karla Variable', sans-serif;
+
+	/* Primary accent color */
+	--color-primary: var(--color-emerald-500);
+	--color-primary-hover: var(--color-emerald-400);
+
+	/* Light mode colors */
+	--color-bg-base: var(--color-zinc-100);
+	--color-bg-surface: var(--color-white);
+	--color-text-primary: var(--color-zinc-900);
+	--color-text-secondary: var(--color-zinc-600);
+
+	/* Dark mode colors */
+	--color-bg-base-dark: var(--color-zinc-950);
+	--color-bg-surface-dark: var(--color-zinc-900);
+	--color-text-primary-dark: var(--color-zinc-50);
+	--color-text-secondary-dark: var(--color-zinc-300);
+}
+
+@layer base {
+	h1 {
+		@apply text-3xl font-bold;
+	}
+	h2 {
+		@apply text-2xl font-semibold;
+	}
+	h3 {
+		@apply text-xl font-medium;
+	}
+	a {
+		@apply hover:underline;
+		color: var(--color-primary);
+	}
+	a:hover {
+		color: var(--color-primary-hover);
+	}
+}
