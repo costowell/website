@@ -1,0 +1,17 @@
+{
+	"version": "0.2",
+	"language": "en",
+	"files": ["**/*.md", "**/*.svelte"],
+	"ignorePaths": ["node_modules", ".svelte-kit", "build", "bun.lock"],
+	"words": [
+		"costowell",
+		"stowell",
+		"svelte",
+		"sveltekit",
+		"mdsvex",
+		"tailwindcss",
+		"katex",
+		"bashc",
+		"frontmatter"
+	]
+}
