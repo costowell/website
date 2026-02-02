@@ -26,7 +26,7 @@
 	{
 		"title": "ELF Fun",
 		"tagline": "🧝?",
-		"description": "Experiment to learn how to parse and generate ELF objects using libelf. Built to understand object structure well enough to build my own.",
+		"description": "Experiment to learn how to parse and generate ELF objects using libelf. Built to understand object structure well enough to emit my own.",
 		"link": "https://github.com/costowell/elf-fun"
 	},
 	{
