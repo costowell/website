@@ -14,9 +14,9 @@
 	</h2>
 	<div class="flex gap-2 md:gap-4">
 		<a
-			href={resolve('/status')}
+			href={resolve('/projects')}
 			class="text-base text-(--color-text-primary) md:text-xl dark:text-(--color-text-primary-dark)"
-			>Status</a
+			>Projects</a
 		>
 		<a
 			href={resolve('/blog')}

@@ -6,7 +6,7 @@
 </script>
 
 <div class="py-8 md:py-12">
-	<div class="rounded-lg p-6">
+	<div class="rounded-lg">
 		<div class="flex flex-col items-start justify-between gap-8 md:flex-row">
 			<div class="flex flex-col gap-4">
 				<h1
@@ -17,8 +17,9 @@
 				<p
 					class="max-w-lg text-lg text-(--color-text-secondary) dark:text-(--color-text-secondary-dark)"
 				>
-					I explore programming languages, mathematics, and low-level engineering. When I'm not
-					doing something with a computer, I like to lift weights and run.
+					I explore programming languages, mathematics, and low-level engineering. I spend a lot of
+					time helping out at <a href="https://csh.rit.edu/">CSH</a> as a Sysadmin and Executive Board
+					member. When I'm not doing something with a computer, I like to lift weights and run.
 				</p>
 				<div class="flex gap-4">
 					<a
