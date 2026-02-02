@@ -5,7 +5,7 @@
 {
 	"languages": {
 		"CSS": {
-			"language_servers": ["tailwindcss-intellisense-css", "!vscode-css-language-server", "..."]
+			"language_servers": ["tailwindcss-language-server", "!vscode-css-language-server", "..."]
 		}
 	}
 }

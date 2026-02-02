@@ -1,8 +1,6 @@
 <script>
 	import { Icon } from 'svelte-icons-pack';
-	import { FaBrandsGithub } from 'svelte-icons-pack/fa';
-	import { FaBrandsLinkedin } from 'svelte-icons-pack/fa';
-	import { FaSolidEnvelope } from 'svelte-icons-pack/fa';
+	import { FaBrandsGithub, FaBrandsLinkedin, FaSolidEnvelope } from 'svelte-icons-pack/fa';
 </script>
 
 <div class="py-8 md:py-12">

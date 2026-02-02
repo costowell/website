@@ -1,0 +1,38 @@
+[
+	{
+		"title": "bashc",
+		"tagline": "interpreting bash is for suckers!",
+		"description": "A compiler that transforms Bash scripts into standalone, statically compiled executables",
+		"link": "https://github.com/costowell/bashc"
+	},
+	{
+		"title": "RAID Fun",
+		"tagline": "what the fuck is a Galois Field?",
+		"description": "A RAID 5/6 simulator supporting normal and degraded read/write operations. Built to learn more about Galois Fields.",
+		"link": "https://github.com/costowell/raid-fun",
+		"resources": [
+			{
+				"label": "Related Paper",
+				"url": "https://www.kernel.org/pub/linux/kernel/people/hpa/raid6.pdf"
+			}
+		]
+	},
+	{
+		"title": "dumlang",
+		"tagline": "a dumb compiler for a dumb language",
+		"description": "An exploration into code generation, compiler construction, and the structure of x86 bytecode.",
+		"link": "https://github.com/costowell/dumlang"
+	},
+	{
+		"title": "ELF Fun",
+		"tagline": "🧝?",
+		"description": "Experiment to learn how to parse and generate ELF objects using libelf. Built to understand object structure well enough to build my own.",
+		"link": "https://github.com/costowell/elf-fun"
+	},
+	{
+		"title": "Personal Site",
+		"tagline": "hmmm seems familiar",
+		"description": "Super simple static site built with Svelte and Tailwind.",
+		"link": "https://github.com/costowell/website"
+	}
+]

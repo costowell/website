@@ -1,5 +1,6 @@
 <script>
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 </script>
 
 <nav
@@ -9,24 +10,21 @@
 		<a
 			href={resolve('/')}
 			class="font-semibold text-(--color-text-primary) dark:text-(--color-text-primary-dark)"
-			>stowell.dev</a
+			>stowell<span class="text-(--color-primary)">.</span>dev</a
 		>
 	</h2>
 	<div class="flex gap-2 md:gap-4">
 		<a
 			href={resolve('/projects')}
-			class="text-base text-(--color-text-primary) md:text-xl dark:text-(--color-text-primary-dark)"
-			>Projects</a
+			class="text-base md:text-xl {page.url.pathname.startsWith('/projects')
+				? 'text-(--color-primary)'
+				: 'text-(--color-text-primary) dark:text-(--color-text-primary-dark)'}">Projects</a
 		>
 		<a
 			href={resolve('/blog')}
-			class="text-base text-(--color-text-primary) md:text-xl dark:text-(--color-text-primary-dark)"
-			>Blog</a
-		>
-		<a
-			href={resolve('/about')}
-			class="text-base text-(--color-text-primary) md:text-xl dark:text-(--color-text-primary-dark)"
-			>About</a
+			class="text-base md:text-xl {page.url.pathname.startsWith('/blog')
+				? 'text-(--color-primary)'
+				: 'text-(--color-text-primary) dark:text-(--color-text-primary-dark)'}">Blog</a
 		>
 	</div>
 </nav>
