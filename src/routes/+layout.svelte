@@ -2,13 +2,14 @@
 	import './layout.css';
 	import 'katex/dist/katex.min.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import '@fontsource/cooper-hewitt';
 	import '@fontsource-variable/karla';
 	import Navbar from '$lib/Navbar.svelte';
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<link rel="icon" href={favicon} />
+</svelte:head>
 
 <div
 	class="bg-(--color-bg-base) text-(--color-text-primary) dark:bg-(--color-bg-base-dark) dark:text-(--color-text-primary-dark)"

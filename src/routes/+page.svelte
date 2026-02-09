@@ -3,6 +3,19 @@
 	import { FaBrandsGithub, FaBrandsLinkedin, FaSolidEnvelope } from 'svelte-icons-pack/fa';
 </script>
 
+<svelte:head>
+	<title>costowell</title>
+	<meta name="description" content="costowell's list of ramblings and bodges" />
+	<meta property="og:site_name" content="stowell.dev" />
+	<meta property="og:title" content="costowell" />
+	<meta property="og:description" content="costowell's list of ramblings and bodges" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="/images/avatar.png" />
+	<meta name="twitter:card" content="costowell's list of ramblings and bodges" />
+	<meta name="twitter:title" content="costowell" />
+	<meta name="twitter:description" content="costowell's list of ramblings and bodges" />
+</svelte:head>
+
 <div class="py-8 md:py-12">
 	<div class="rounded-lg">
 		<div class="flex flex-col items-start justify-between gap-8 md:flex-row">

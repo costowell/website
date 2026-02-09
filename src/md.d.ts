@@ -1,7 +1,21 @@
 declare module '*.md' {
-	import type { SvelteComponent } from 'svelte';
+	import type { Component } from 'svelte';
 
-	export default class Comp extends SvelteComponent {}
+	const component: Component;
+	export default component;
 
 	export const metadata: Record<string, unknown>;
+}
+
+export interface MdModule<T> {
+	default: Component;
+	metadata: T;
+}
+
+export interface BlogMetadata {
+	id: string;
+	title: string;
+	date: string;
+	summary: string;
+	layout: string;
 }
