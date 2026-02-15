@@ -1,7 +1,7 @@
 {
 	"version": "0.2",
 	"language": "en",
-	"files": ["**/*.svelte"],
+	"files": ["**/*.svelte", "content/projects.json"],
 	"ignorePaths": ["node_modules", ".svelte-kit", "build", "bun.lock"],
 	"words": [
 		"costowell",
@@ -12,6 +12,8 @@
 		"tailwindcss",
 		"katex",
 		"bashc",
-		"frontmatter"
+		"frontmatter",
+		"dumlang",
+		"libelf"
 	]
 }
