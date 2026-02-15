@@ -1,7 +1,7 @@
 {
 	"version": "0.2",
 	"language": "en",
-	"files": ["**/*.md", "**/*.svelte"],
+	"files": ["**/*.svelte"],
 	"ignorePaths": ["node_modules", ".svelte-kit", "build", "bun.lock"],
 	"words": [
 		"costowell",

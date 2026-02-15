@@ -270,7 +270,7 @@ To prove my observation, I decided to go with the very thing that started this j
 I first started with the idea that equations can be modeled as a **set of points** which I'll be referring to as **equation sets**.
 For example, $x = y$ could be described by a set of points that look like $(1,1)$, $(-17,-17)$, $(5919, 5919)$, etc., in the form $(x, y)$.
 
-With this idea, we can say the **intersection of two equation sets** is the solution to the system of the two coresponding equations.
+With this idea, we can say the **intersection of two equation sets** is the solution to the system of the two corresponding equations.
 For example, consider the following equations where $A$ and $B$ are equation sets.
 
 $A\colon x = y$, $B\colon y = 1$

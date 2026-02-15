@@ -19,7 +19,7 @@ In a [separate project](https://github.com/costowell/elf-fun), I learned how to 
 From what I've seen, its semi-common to build a [JIT compiler](https://en.wikipedia.org/wiki/Just-in-time_compilation) because there is no need to write the instructions to a file.
 When doing JIT compilation, you write the instructions to a piece of memory and then execute that piece of memory.
 
-In my humble opinion, outputing a file is going to be a lot easier to debug because I can easily inspect and go step-by-step through the generated program like I would any other program.
+In my humble opinion, outputting a file is going to be a lot easier to debug because I can easily inspect and go step-by-step through the generated program like I would any other program.
 Aside from debugging, its just more satisfying to have generated an executable.
 As an analogy, what's cooler: a robot that does the stuff you tell it or a robot that builds other robots to do what you tell it?
 
