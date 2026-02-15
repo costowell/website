@@ -5,10 +5,10 @@
 	const { id, title, date, summary } = $props();
 	const d = $derived(new Date(date));
 
-	let month = $derived((d.getMonth() + 1).toString().padStart(2, '0'));
-	let day = $derived((d.getDate() + 1).toString().padStart(2, '0'));
+	let month = $derived((d.getUTCMonth() + 1).toString().padStart(2, '0'));
+	let day = $derived(d.getUTCDate().toString().padStart(2, '0'));
 	const onclick = () => {
-		goto(resolve(`/blog/${d.getFullYear()}/${month}/${day}/${id}`));
+		goto(resolve(`/blog/${d.getUTCFullYear()}/${month}/${day}/${id}`));
 	};
 </script>
 
@@ -22,7 +22,12 @@
 	<p
 		class="mt-1 text-sm text-(--color-text-secondary) italic dark:text-(--color-text-secondary-dark)"
 	>
-		{d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+		{d.toLocaleDateString('en-US', {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric',
+			timeZone: 'UTC'
+		})}
 	</p>
 	{#if summary}
 		<p class="mt-2 text-sm text-(--color-text-secondary) dark:text-(--color-text-secondary-dark)">

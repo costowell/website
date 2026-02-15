@@ -6,9 +6,9 @@ export function entries() {
 	return Object.values(posts).map(({ metadata }) => {
 		const d = new Date(metadata.date);
 		return {
-			year: d.getFullYear().toString(),
-			month: (d.getMonth() + 1).toString().padStart(2, '0'),
-			day: (d.getDate() + 1).toString().padStart(2, '0'),
+			year: d.getUTCFullYear().toString(),
+			month: (d.getUTCMonth() + 1).toString().padStart(2, '0'),
+			day: d.getUTCDate().toString().padStart(2, '0'),
 			id: metadata.id
 		};
 	});
