@@ -1,23 +1,10 @@
 <script lang="ts">
+	import SiteMeta from '$lib/SiteMeta.svelte';
 	let { date, title, summary, children } = $props();
 	const isoDate = $derived(date ? new Date(date).toISOString() : undefined);
 </script>
 
-<svelte:head>
-	<title>{title}</title>
-	<meta property="og:title" content={title} />
-	<meta property="og:type" content="article" />
-	{#if isoDate}
-		<meta property="article:published_time" content={isoDate} />
-	{/if}
-	{#if summary}
-		<meta name="description" content={summary} />
-		<meta property="og:description" content={summary} />
-		<meta name="twitter:description" content={summary} />
-	{/if}
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content={title} />
-</svelte:head>
+<SiteMeta {title} description={summary} type="article" publishedTime={isoDate} />
 
 <article class="py-8">
 	<header class="mb-8">

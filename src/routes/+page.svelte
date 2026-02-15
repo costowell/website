@@ -1,20 +1,10 @@
 <script>
 	import { Icon } from 'svelte-icons-pack';
 	import { FaBrandsGithub, FaBrandsLinkedin, FaSolidEnvelope } from 'svelte-icons-pack/fa';
+	import SiteMeta from '$lib/SiteMeta.svelte';
 </script>
 
-<svelte:head>
-	<title>costowell</title>
-	<meta name="description" content="costowell's list of ramblings and bodges" />
-	<meta property="og:site_name" content="stowell.dev" />
-	<meta property="og:title" content="costowell" />
-	<meta property="og:description" content="costowell's list of ramblings and bodges" />
-	<meta property="og:type" content="website" />
-	<meta property="og:image" content="/images/avatar.png" />
-	<meta name="twitter:card" content="costowell's list of ramblings and bodges" />
-	<meta name="twitter:title" content="costowell" />
-	<meta name="twitter:description" content="costowell's list of ramblings and bodges" />
-</svelte:head>
+<SiteMeta />
 
 <div class="py-8 md:py-12">
 	<div class="rounded-lg">
