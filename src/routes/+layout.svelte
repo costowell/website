@@ -3,7 +3,7 @@
 	import 'katex/dist/katex.min.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import '@fontsource-variable/karla';
-	import Navbar from '$lib/Navbar.svelte';
+	import Navbar from '$lib/components/Navbar.svelte';
 	let { children } = $props();
 </script>
 

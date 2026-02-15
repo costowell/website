@@ -16,13 +16,13 @@
 	<div class="flex gap-2 md:gap-4">
 		<a
 			href={resolve('/projects')}
-			class="text-base md:text-xl {page.url.pathname.startsWith('/projects')
+			class="text-xl {page.url.pathname.startsWith('/projects')
 				? 'text-(--color-primary)'
 				: 'text-(--color-text-primary) dark:text-(--color-text-primary-dark)'}">Projects</a
 		>
 		<a
 			href={resolve('/blog')}
-			class="text-base md:text-xl {page.url.pathname.startsWith('/blog')
+			class="text-xl {page.url.pathname.startsWith('/blog')
 				? 'text-(--color-primary)'
 				: 'text-(--color-text-primary) dark:text-(--color-text-primary-dark)'}">Blog</a
 		>

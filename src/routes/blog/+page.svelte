@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SiteMeta from '$lib/SiteMeta.svelte';
+	import SiteMeta from '$lib/components/SiteMeta.svelte';
 	import type { BlogMetadata, MdModule } from '../../md';
 
 	const posts: MdModule<BlogMetadata>[] = Object.values(

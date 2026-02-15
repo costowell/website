@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SiteMeta from '$lib/SiteMeta.svelte';
+	import SiteMeta from '$lib/components/SiteMeta.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import projects from '../../../content/projects.json';
 </script>

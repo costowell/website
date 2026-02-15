@@ -1,7 +1,7 @@
 <script>
 	import { Icon } from 'svelte-icons-pack';
 	import { FaBrandsGithub, FaBrandsLinkedin, FaSolidEnvelope } from 'svelte-icons-pack/fa';
-	import SiteMeta from '$lib/SiteMeta.svelte';
+	import SiteMeta from '$lib/components/SiteMeta.svelte';
 </script>
 
 <SiteMeta />
