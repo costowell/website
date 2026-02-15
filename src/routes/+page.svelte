@@ -8,15 +8,17 @@
 
 <div class="py-8 md:py-12">
 	<div class="rounded-lg">
-		<div class="flex flex-col items-start justify-between gap-8 md:flex-row">
-			<div class="flex flex-col gap-4">
+		<div
+			class="flex flex-col-reverse items-center justify-between gap-8 md:flex-row md:items-start"
+		>
+			<div class="flex flex-col items-center gap-4 md:items-start">
 				<h1
-					class="text-4xl font-bold text-(--color-text-primary) md:text-5xl dark:text-(--color-text-primary-dark)"
+					class="text-center text-4xl font-bold text-(--color-text-primary) md:text-left md:text-5xl dark:text-(--color-text-primary-dark)"
 				>
 					Hi, I'm Cole!
 				</h1>
 				<p
-					class="max-w-lg text-lg text-(--color-text-secondary) dark:text-(--color-text-secondary-dark)"
+					class="max-w-lg text-center text-lg text-(--color-text-secondary) md:text-left dark:text-(--color-text-secondary-dark)"
 				>
 					I explore programming languages, mathematics, and low-level engineering. I spend a lot of
 					time helping out at <a href="https://csh.rit.edu/">CSH</a> as a Sysadmin and Executive Board
@@ -50,7 +52,7 @@
 			<img
 				src="/images/avatar.png"
 				alt="my face barely visible in a ball pit"
-				class="h-40 w-40 self-end rounded-full border-4 border-(--color-primary) object-cover shadow-lg md:self-start"
+				class="h-32 w-32 rounded-full border-4 border-(--color-primary) object-cover shadow-lg md:h-40 md:w-40"
 			/>
 		</div>
 	</div>

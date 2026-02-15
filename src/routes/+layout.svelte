@@ -12,7 +12,7 @@
 </svelte:head>
 
 <div
-	class="mx-auto min-h-screen max-w-3xl border-x border-(--color-text-secondary)/20 bg-(--color-bg-surface) px-6 dark:border-(--color-text-secondary-dark)/20 dark:bg-(--color-bg-surface-dark)"
+	class="mx-auto min-h-screen max-w-3xl border-(--color-text-secondary)/20 bg-(--color-bg-surface) px-6 md:border-x dark:border-(--color-text-secondary-dark)/20 dark:bg-(--color-bg-surface-dark)"
 >
 	<Navbar />
 	<div class="px-2">
