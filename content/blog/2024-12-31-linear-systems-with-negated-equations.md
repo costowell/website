@@ -1,18 +1,18 @@
 ---
 id: linear-systems-with-negated-equations
-title: "Linear Systems with Negated Equations"
+title: 'Linear Systems with Negated Equations'
 date: 2024-12-31
-summary: "Using matrices and set theory to prove consistency of equations with inequalities."
+summary: 'Using matrices and set theory to prove consistency of equations with inequalities.'
 layout: blog
 ---
 
 Recently, I did what few CS majors ever do at RIT and checked out two books from the library:
-*<a href="https://archive.org/details/settheoryabstrac0000blyt" target="_blank">Set theory and abstract algebra</a>* by Thomas Scott Blyth
+_<a href="https://archive.org/details/settheoryabstrac0000blyt" target="_blank">Set theory and abstract algebra</a>_ by Thomas Scott Blyth
 and
-*<a href="https://link.springer.com/book/9780387908922" target="_blank">Topology</a>* by Klaus Jänich.
+_<a href="https://link.springer.com/book/9780387908922" target="_blank">Topology</a>_ by Klaus Jänich.
 I had wanted, and still want to, understand the mathematics of topology,
 but after reading the first chapter, I realized that I needed to brush up on my set theory before I continued.
-So, I went through the first chapter in *Set theory and abstract algebra*, and
+So, I went through the first chapter in _Set theory and abstract algebra_, and
 wondered if I could write a simple theorem prover to do these exercises for me.
 I had read about SMT solvers in a paper a friend recommended,
 but my experience with automated proof ended there. Needless to say, I did not expect to make any breakthroughs,
@@ -23,19 +23,20 @@ However, this article isn't about the theorem proving, its about the interesting
 ## Framing the Problem
 
 I wrote a tiny programming language to express boolean equations like
+
 - `A & B` means "A and B"
 - `(A | !B) -> C` means "if A or not B then C"
 
 Each of these variables is a boolean value and my program would find the values which made the whole statement true.
 This is commonly known as a [SAT Solver](https://en.wikipedia.org/wiki/SAT_solver).
 
-The next thing I wanted to do was replace these boolean variables with *equations*.
+The next thing I wanted to do was replace these boolean variables with _equations_.
 This adds an interesting problem because there can be a boolean solution which contradicts itself.
 
 For example, if we had the expression `A & B`, the only solution is when `A` and `B` are both true.
 However, if we changed the expression to be `(x = 1) & (x = 2)`, both `x = 1` and `x = 2` has to be true to satisfy the boolean expression,
 but they obviously can't be true at the same time.
-Since the only possible solution gives a contradiction, there are no possible solutions for the expression and is therefore *unsatisfiable*.
+Since the only possible solution gives a contradiction, there are no possible solutions for the expression and is therefore _unsatisfiable_.
 
 So what if we have 10, 1000, or 1058515 equations? How do we prove they're all consistent?
 Thankfully, I had just about wrapped up a semester of Linear Algebra so the first thought that came to my mind was **put it in a matrix!**
@@ -45,7 +46,7 @@ Usually when manipulating the rows, we want it to be in Reduced Row Echelon Form
 This is putting the system in its most simple form so that redundant equations get removed and we can see simpler relationships between the variables.
 
 But one critical constraint makes this much more interesting: negated equations.
-Negated equations are equations that say something *is not equal* to something.
+Negated equations are equations that say something _is not equal_ to something.
 If our expression was `!A & B` then the only solution is when `A` is false and `B` is true.
 By using the same equations our expression will be `(x != 1) & (x = 2)`.
 Of course, this expression is trivially true.
@@ -56,6 +57,7 @@ We need to develop process that takes these negated equations into account.
 ## Attempt 1: The first of many
 
 I initially started with the following process.
+
 1. Put all positive (normal) equations in a matrix
 2. Solve for the Reduced Row Echelon Form (RREF)
    - If there is a contradiction, system is inconsistent
@@ -144,6 +146,7 @@ $$
   0 & 1 & 1 & \bigm| & 1\\
 \end{bmatrix}
 $$
+
 (The matrix is already in RREF)
 
 **Step 3: Build equivalence classes**
@@ -168,7 +171,6 @@ Therefore, according to this method, a is not equal to b.
 
 **However**, equation comparison and equivalence class generation seem like a lot of guess work that is computationally expensive.
 Also, equivalence classes seemed to substitute the function of a matrix, so I decided to pivot towards using matrices more.
-
 
 ## Attempt 2: Close, but no cigar
 
@@ -202,6 +204,7 @@ $$
 0 & 1 & 1 & \bigm| & 1\\
 \end{bmatrix}
 $$
+
 (The matrix is already in RREF)
 
 **Step 3 & 4: Add inverse of a negated equation to the system**
@@ -232,7 +235,7 @@ This is exactly what we expect! Sadly, as the title of this section indicates, w
 ### Counterexample
 
 The culprit lies in the logic determining if a negated equation is consistent.
-Suppose we want to check the consistency of a negated equation for variables which have *nothing* to do with the system?
+Suppose we want to check the consistency of a negated equation for variables which have _nothing_ to do with the system?
 For example:
 
 $a = 1$, $c \ne 3$
@@ -257,7 +260,7 @@ We're inching closer, but this solution is also wrong.
 
 ## Attempt 3: Third Time's the Charm
 
-After having iterated on this idea for awhile, I began noticing *how* the matrix changed when checking the consistency of a negated equation with the above method.
+After having iterated on this idea for awhile, I began noticing _how_ the matrix changed when checking the consistency of a negated equation with the above method.
 
 I started to see some kind of correlation between the resulting matrix's rank (# of non-zero rows), but I wasn't satisfied with just a naive observation.
 To prove my observation, I decided to go with the very thing that started this journey: set theory!
@@ -270,7 +273,7 @@ For example, $x = y$ could be described by a set of points that look like $(1,1)
 With this idea, we can say the **intersection of two equation sets** is the solution to the system of the two coresponding equations.
 For example, consider the following equations where $A$ and $B$ are equation sets.
 
-$A\colon x = y$,  $B\colon y = 1$
+$A\colon x = y$, $B\colon y = 1$
 
 $B$ has points like $(1, 1)$, $(-12, 1)$, $(24, 1)$. So long as the second element is $1$, its in $B$.
 
@@ -305,12 +308,12 @@ $A = A \cap B^\complement$
 
 we get this glorious, beautiful equation, revealing the final building block for our proof.
 
-*It is at this point that I must pause and encourage you, the reader, to understand the significance before I give it away.*
-*However, if you're just here for a good time, then by all means, read on.*
+_It is at this point that I must pause and encourage you, the reader, to understand the significance before I give it away._
+_However, if you're just here for a good time, then by all means, read on._
 
 #### What does it mean?
 
-This proves that if we add the inverse of a negated equation to the system and the system remains *unchanged* ($A = A \cap B^\complement$)
+This proves that if we add the inverse of a negated equation to the system and the system remains _unchanged_ ($A = A \cap B^\complement$)
 then the negated equation is **inconsistent with the system** ($A \cap B = \emptyset$).
 
 ### Lets show that counterexample who's boss!
@@ -365,7 +368,6 @@ $$
 
 We can see that if $A \cap B$ or $A \cap C$ are empty then $A \cap B \cap C$ has to be empty too because the intersection of anything with an empty set is the empty set.
 
-
 ### To bring it all together!
 
 The final process is as follows.
@@ -379,7 +381,7 @@ The final process is as follows.
      - The negated equation **must** be inconsistent with the system
      - One equation is inconsistent with the system, therefore the whole system is inconsistent!
    - If the system changes...
-     - The negated equation might remove *some possible* solutions to the system, but did not remove all of them, therefore its consistent!
+     - The negated equation might remove _some possible_ solutions to the system, but did not remove all of them, therefore its consistent!
      - Repeat steps 3 and 4 until all negated equations are verified as consistent
 
 ## Conclusion

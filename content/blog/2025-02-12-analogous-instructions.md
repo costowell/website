@@ -1,17 +1,17 @@
 ---
 id: analogous-instructions
-title: "Analogous Instructions in x86"
+title: 'Analogous Instructions in x86'
 date: 2025-02-12
-summary: "How two different opcodes can encode the same instruction in x86."
+summary: 'How two different opcodes can encode the same instruction in x86.'
 layout: blog
 ---
 
 I'm currently writing a compiler from scratch in a language I affectionately call `dumlang`.
 Its not meant to do much, hence the name, but I want to use this project as a way to understand a few key things better.
 
-1. *Code Generation* - generating the necessary instructions for the CPU to execute a program written in this language
-2. *Instruction Encoding* - specifically x86's instruction encoding
-3. *Object Generation* - generating objects that a linker can use to build an executable
+1. _Code Generation_ - generating the necessary instructions for the CPU to execute a program written in this language
+2. _Instruction Encoding_ - specifically x86's instruction encoding
+3. _Object Generation_ - generating objects that a linker can use to build an executable
 
 An assembler abstracts away instruction encoding and object generation conveniently, so I can't depend on any assembler.
 
@@ -23,7 +23,7 @@ In my humble opinion, outputing a file is going to be a lot easier to debug beca
 Aside from debugging, its just more satisfying to have generated an executable.
 As an analogy, what's cooler: a robot that does the stuff you tell it or a robot that builds other robots to do what you tell it?
 
-But I digress! This article is a brief update on what I've been working on *and* a cool fact I found out while learning about x86 instruction encoding.
+But I digress! This article is a brief update on what I've been working on _and_ a cool fact I found out while learning about x86 instruction encoding.
 
 Lets take an instruction that copies the value in the register `ecx` to the register `eax`.
 
@@ -34,7 +34,8 @@ mov eax, ecx
 If we pretend that we're the assembler and our job is to output some bytes which will tell the CPU "copy eax to ebx", how would we do it?
 
 ## Basic Instruction Encoding
-First, we start with the *opcode*. The most important part of any instruction is the *opcode*, since it dictates what kind of operation the instruction is going to do.
+
+First, we start with the _opcode_. The most important part of any instruction is the _opcode_, since it dictates what kind of operation the instruction is going to do.
 However, x86 has [a lot of different ways to encode the MOV instruction](https://www.felixcloutier.com/x86/mov).
 These vary from the size of the operands (16bit, 32bit, etc...), if we're copying from a register to a location in memory, or even if we're copying a constant into a register.
 In our case, we're trying to copy data from one register to another.
@@ -42,7 +43,7 @@ However, there are two opcodes which let us do this. What's the point in having 
 Lets take a look at how they are specified
 
 | Opcode | Instruction      |
-|--------|------------------|
+| ------ | ---------------- |
 | `0x89` | `MOV r/m32, r32` |
 | `0x8B` | `MOV r32, r/m32` |
 
@@ -52,7 +53,7 @@ What do these mean?
 
 `r32` means a 32-bit register.
 
-`r/m32` means a 32-bit register *OR* a 32-bit memory location.
+`r/m32` means a 32-bit register _OR_ a 32-bit memory location.
 
 By this point, I'm sure you can see the trick: both can take two registers, so both can `MOV` from one register to another.
 So how do we specify our operands?
@@ -67,16 +68,15 @@ The `REG` field stands for **reg**ister, so it contains the bits that specify th
 Since this is an 3-bit field, there are 8 (2³) registers you can specify. Here's what they all map to.
 
 | Number (decimal) | Number (binary) | Register |
-|------------------|-----------------|----------|
-|                0 |             000 | eax      |
-|                1 |             001 | ecx      |
-|                2 |             010 | edx      |
-|                3 |             011 | ebx      |
-|                4 |             100 | esp      |
-|                5 |             101 | ebp      |
-|                6 |             110 | esi      |
-|                7 |             111 | edi      |
-
+| ---------------- | --------------- | -------- |
+| 0                | 000             | eax      |
+| 1                | 001             | ecx      |
+| 2                | 010             | edx      |
+| 3                | 011             | ebx      |
+| 4                | 100             | esp      |
+| 5                | 101             | ebp      |
+| 6                | 110             | esi      |
+| 7                | 111             | edi      |
 
 The `R/M` field, you might have guessed, stands for **R**egister/**M**emory and stores either a register or memory address.
 
@@ -104,8 +104,8 @@ And finally, using the table above, we know that `eax` and `ecx` are numbers 000
 Okay, lets take a look!
 
 | MOD₇ | MOD₆ | REG₅ | REG₄ | REG₃ | R/M₂ | R/M₁ | R/M₀ |
-|------|------|------|------|------|------|------|------|
-|    1 |    1 |    0 |    0 |    1 |    0 |    0 |    0 |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| 1    | 1    | 0    | 0    | 1    | 0    | 0    | 0    |
 
 This byte is `0b11001000` in binary which is `0xC8` in hexadecimal, so our full instruction is `89 C8`!
 Don't believe me? [Check it out in a disassembler!](https://shell-storm.org/online/Online-Assembler-and-Disassembler/?opcodes=89+C8&arch=x86-64&endianness=little&baddr=0x00000000&dis_with_addr=True&dis_with_raw=True&dis_with_ins=True#disassembly) That's pretty cool!
@@ -120,8 +120,8 @@ For MOD-REG-R/M byte, the `MOD` field won't change, but our `REG` and `R/M` have
 So, here's what that looks like.
 
 | MOD₇ | MOD₆ | REG₅ | REG₄ | REG₃ | R/M₂ | R/M₁ | R/M₀ |
-|------|------|------|------|------|------|------|------|
-|    1 |    1 |    0 |    0 |    0 |    0 |    0 |    1 |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| 1    | 1    | 0    | 0    | 0    | 0    | 0    | 1    |
 
 This byte is `0b11000001` in binary which is `0xC1` in hexadecimal, so our full instruction is `8B C1`!
 Again, here's [the disassembled version](https://shell-storm.org/online/Online-Assembler-and-Disassembler/?opcodes=8B+C1&arch=x86-64&endianness=little&baddr=0x00000000&dis_with_addr=True&dis_with_raw=True&dis_with_ins=True#disassembly).
@@ -139,5 +139,6 @@ You can verify your solutions by putting them in [this disassembler](https://she
 Good luck and thanks for reading!
 
 ## Resources
+
 - [x86 Instruction Encoding Info and Images](https://www.c-jump.com/CIS77/CPU/x86/lecture.html)
 - [Disassembler](https://shell-storm.org/online/Online-Assembler-and-Disassembler/)
