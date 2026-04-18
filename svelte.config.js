@@ -6,8 +6,14 @@ import rehypeKatexSvelte from 'rehype-katex-svelte';
 import rehypeExternalLinks from 'rehype-external-links';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { createHighlighter } from 'shiki';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const highlighter = await createHighlighter({
+	themes: ['dark-plus', 'light-plus'],
+	langs: ['asm']
+});
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -18,6 +24,19 @@ const config = {
 
 			layout: {
 				blog: join(__dirname, 'src/lib/layouts/Blog.svelte')
+			},
+
+			highlight: {
+				highlighter(code, lang) {
+					const html = highlighter.codeToHtml(code, {
+						lang: lang || 'text',
+						themes: {
+							light: 'light-plus',
+							dark: 'dark-plus'
+						}
+					});
+					return `{@html ${JSON.stringify(html)}}`;
+				}
 			},
 
 			remarkPlugins: [remarkMath],

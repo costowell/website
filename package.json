@@ -30,6 +30,7 @@
 		"mdsvex": "^0.12.6",
 		"prettier": "^3.8.1",
 		"prettier-plugin-svelte": "^3.4.1",
+		"shiki": "^3.7.0",
 		"prettier-plugin-tailwindcss": "^0.7.2",
 		"svelte": "^5.48.2",
 		"svelte-check": "^4.3.5",
