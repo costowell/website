@@ -7,7 +7,7 @@
 <SiteMeta {title} description={summary} type="article" publishedTime={isoDate} />
 
 <article class="py-8">
-	<header class="mb-8">
+	<header class="mb-5">
 		<h1 class="mb-2">{title}</h1>
 		{#if date}
 			<time class="text-sm text-(--color-text-secondary) dark:text-(--color-text-secondary-dark)">
