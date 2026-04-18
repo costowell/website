@@ -1,4 +1,5 @@
 // place files you want to import through the `$lib` alias in this folder.
+export { default as BitField } from './components/BitField.svelte';
 const violet = {
 	400: { r: 167, g: 139, b: 250 },
 	500: { r: 139, g: 92, b: 246 }
