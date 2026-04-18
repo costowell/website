@@ -49,6 +49,10 @@
 	const sortedFields = $derived([...fields].sort((a, b) => b.bits[0] - a.bits[0]));
 	const hasDescriptions = $derived(sortedFields.some((f) => f.description));
 
+	function range(n: number): number[] {
+		return Array.from({ length: n }, (_, i) => i);
+	}
+
 	function fieldSpan(f: Field): number {
 		return f.bits[0] - f.bits[1] + 1;
 	}
@@ -70,12 +74,12 @@
 		style="grid-template-columns: repeat({totalBits}, 1fr); min-width: {totalBits * 1.75}rem;"
 	>
 		<!-- Row 1: Bit indicators -->
-		{#each sortedFields as field}
+		{#each sortedFields as field (field.bits[0])}
 			{@const span = fieldSpan(field)}
 			{@const col = colStart(field)}
 			{#if field.values}
 				<!-- Individual bit numbers above value fields -->
-				{#each field.values as _, i}
+				{#each range(field.values.length) as i (field.bits[0] - i)}
 					<div class="bf-bit-label" style="grid-row: 1; grid-column: {col + i};">
 						{field.bits[0] - i}
 					</div>
@@ -89,7 +93,7 @@
 		{/each}
 
 		<!-- Row 2: Field cells (always merged per field) -->
-		{#each sortedFields as field, idx}
+		{#each sortedFields as field, idx (field.bits[0])}
 			{@const span = fieldSpan(field)}
 			{@const col = colStart(field)}
 			{@const isFirst = idx === 0}
@@ -103,7 +107,7 @@
 				{#if field.values}
 					<!-- Evenly spaced bit values inside merged cell -->
 					<span class="bf-values">
-						{#each field.values as val}
+						{#each field.values as val, vi (vi)}
 							<span class="bf-val">{val}</span>
 						{/each}
 					</span>
@@ -115,7 +119,7 @@
 
 		<!-- Row 3: Descriptions -->
 		{#if hasDescriptions}
-			{#each sortedFields as field}
+			{#each sortedFields as field (field.bits[0])}
 				{@const span = fieldSpan(field)}
 				{@const col = colStart(field)}
 				<div class="bf-desc" style="grid-row: 3; grid-column: {col} / span {span};">
