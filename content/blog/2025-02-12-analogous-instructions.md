@@ -110,7 +110,6 @@ Lets try it with the other `mov` opcode, `0x8B`. This time `eax` goes in the `re
 
 Once again, if we encode this in hexadecimal we get `8B C1`.
 And again, here's [the disassembled version](https://gchq.github.io/CyberChef/#recipe=Disassemble_x86('64','Full%20x86%20architecture',16,0,true,true)&input=OEIgQzE&oeol=CRLF).
-
 How cool!
 
 ## Conclusion
