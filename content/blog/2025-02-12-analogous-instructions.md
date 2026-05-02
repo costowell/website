@@ -3,7 +3,7 @@ id: analogous-instructions
 title: 'Analogous Instructions in x86'
 summary: 'How two different opcodes can encode the same instruction in x86.'
 published: 2025-02-12T00:00:00-05:00
-revised: 2026-04-18T05:44:11-05:00
+revised: 2026-05-02T13:04:09-05:00
 layout: blog
 ---
 
@@ -60,16 +60,9 @@ The second byte is called the ModR/M byte, and it's what will hold our parameter
 
 Here's what the register numbers are for the 8 registers we can put in this byte.
 
-| Register | Number |
-| -------- | ------ |
-| `eax`    | `000`  |
-| `ecx`    | `001`  |
-| `edx`    | `010`  |
-| `ebx`    | `011`  |
-| `esp`    | `100`  |
-| `ebp`    | `101`  |
-| `esi`    | `110`  |
-| `edi`    | `111`  |
+| **Register** | `eax` | `ecx` | `edx` | `ebx` | `esp` | `ebp` | `esi` | `edi` |
+| ------------ | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| **Number**   | `000` | `001` | `010` | `011` | `100` | `101` | `110` | `111` |
 
 ## Okay Let's Make One
 
