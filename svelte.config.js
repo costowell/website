@@ -12,7 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const highlighter = await createHighlighter({
 	themes: ['dark-plus', 'light-plus'],
-	langs: ['asm']
+	langs: ['asm', 'sh']
 });
 
 /** @type {import('@sveltejs/kit').Config} */
