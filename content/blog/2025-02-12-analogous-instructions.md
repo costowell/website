@@ -1,7 +1,7 @@
 ---
 id: analogous-instructions
 title: 'Analogous Instructions in x86'
-date: 2025-02-12 EST
+date: 2025-02-12T00:00:00-05:00
 summary: 'How two different opcodes can encode the same instruction in x86.'
 layout: blog
 ---
