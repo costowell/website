@@ -4,7 +4,7 @@ const posts = import.meta.glob<MdModule<BlogMetadata>>('/content/blog/*.md', { e
 
 export function entries() {
 	return Object.values(posts).map(({ metadata }) => {
-		const d = new Date(metadata.date);
+		const d = new Date(metadata.published);
 		return {
 			year: d.getUTCFullYear().toString(),
 			month: (d.getUTCMonth() + 1).toString().padStart(2, '0'),
