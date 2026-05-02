@@ -15,7 +15,10 @@ export interface MdModule<T> {
 export interface BlogMetadata {
 	id: string;
 	title: string;
-	date: string;
+	published: string;
+	revised: string;
 	summary: string;
 	layout: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	children: any;
 }

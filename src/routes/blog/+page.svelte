@@ -5,7 +5,9 @@
 	const posts: MdModule<BlogMetadata>[] = Object.values(
 		import.meta.glob<MdModule<BlogMetadata>>('/content/blog/*.md', { eager: true })
 	);
-	posts.sort((a, b) => new Date(b.metadata.date).valueOf() - new Date(a.metadata.date).valueOf());
+	posts.sort(
+		(a, b) => new Date(b.metadata.published).valueOf() - new Date(a.metadata.published).valueOf()
+	);
 </script>
 
 <SiteMeta title="costowell blog" description="the ramblings" />

@@ -1,8 +1,9 @@
 ---
 id: linear-systems-with-negated-equations
 title: 'Linear Systems with Negated Equations'
-date: 2024-12-31T00:00:00-05:00
 summary: 'Using matrices and set theory to prove consistency of equations with inequalities.'
+published: 2024-12-31T00:00:00-05:00
+revised: 2024-12-31T00:00:00-05:00
 layout: blog
 ---
 

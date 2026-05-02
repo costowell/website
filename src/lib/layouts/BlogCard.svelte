@@ -1,15 +1,25 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import type { BlogMetadata } from '../../md';
 
-	const { id, title, date, summary } = $props();
-	const d = $derived(new Date(date));
+	const { id, title, published, revised, summary }: BlogMetadata = $props();
+	const publishedDate = $derived(new Date(published));
+	const revisedDate = $derived(new Date(revised));
 
-	let month = $derived((d.getUTCMonth() + 1).toString().padStart(2, '0'));
-	let day = $derived(d.getUTCDate().toString().padStart(2, '0'));
+	const month = $derived((publishedDate.getUTCMonth() + 1).toString().padStart(2, '0'));
+	const day = $derived(publishedDate.getUTCDate().toString().padStart(2, '0'));
 	const onclick = () => {
-		goto(resolve(`/blog/${d.getUTCFullYear()}/${month}/${day}/${id}`));
+		goto(resolve(`/blog/${publishedDate.getUTCFullYear()}/${month}/${day}/${id}`));
 	};
+	const fmt = (d: Date) =>
+		d.toLocaleDateString('en-US', {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric',
+			timeZone: 'UTC'
+		});
+	const isRevised = $derived(publishedDate.valueOf() != revisedDate.valueOf());
 </script>
 
 <button
@@ -22,12 +32,10 @@
 	<p
 		class="mt-1 text-sm text-(--color-text-secondary) italic dark:text-(--color-text-secondary-dark)"
 	>
-		{d.toLocaleDateString('en-US', {
-			month: 'short',
-			day: 'numeric',
-			year: 'numeric',
-			timeZone: 'UTC'
-		})}
+		{fmt(publishedDate)}
+		{#if isRevised}
+			(Revised {fmt(revisedDate)})
+		{/if}
 	</p>
 	{#if summary}
 		<p class="mt-2 text-sm text-(--color-text-secondary) dark:text-(--color-text-secondary-dark)">

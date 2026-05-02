@@ -2,6 +2,7 @@
 id: {{id}}
 title: '{{title}}'
 summary: '{{summary}}'
-date: 0
+published: 0
+revised: 0
 layout: blog
 ---

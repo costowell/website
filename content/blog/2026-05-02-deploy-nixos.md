@@ -1,8 +1,9 @@
 ---
 id: deploy-nixos
 title: 'OS Agnostic NixOS Deploying'
-date: 2026-05-01T00:00:00-05:00
 summary: 'How to deploy to a NixOS server without installing Nix to your host machine.'
+published: 2026-05-02T12:21:15-05:00
+revised: 2026-05-02T12:21:15-05:00
 layout: blog
 ---
 
