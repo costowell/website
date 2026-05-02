@@ -2,10 +2,10 @@ import { exec } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { argv, exit } from 'node:process';
 
-function formatDate() {
+function formatDate(d: Date) {
 	const pad = (n: number) => String(n).padStart(2, '0');
 	const offsetHours = -5;
-	const shifted = new Date(new Date().getTime() + offsetHours * 3600 * 1000);
+	const shifted = new Date(d.getTime() + offsetHours * 3600 * 1000);
 
 	const sign = offsetHours >= 0 ? '+' : '-';
 	const offset = `${sign}${pad(Math.abs(offsetHours))}:00`;
@@ -53,8 +53,13 @@ for (const line of frontmatter.split('\n')) {
 	const t = line.split(': ');
 	meta[t[0]] = t[1].trim();
 }
+const isRevision = meta.published != '0';
 
-meta.date = formatDate();
+const today = new Date();
+meta.revised = formatDate(today); // Always change revised date,
+if (!isRevision) {
+	meta.published = formatDate(today);
+}
 
 let new_frontmatter = '';
 for (const key in meta) {
@@ -65,4 +70,11 @@ content[1] = new_frontmatter;
 writeFileSync(filename, content.join('---\n'));
 
 await run(`git add ${filename}`);
-await run(`git commit -m "post: ${meta.title.replaceAll("'", '')}"`);
+
+let commitAction;
+if (isRevision) {
+	commitAction = 'revise';
+} else {
+	commitAction = 'post';
+}
+await run(`git commit -m "${commitAction}: ${meta.title.replaceAll("'", '')}"`);
